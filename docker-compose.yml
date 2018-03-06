@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+
+  testapp:
+    build:
+      context: ./test-app
+      dockerfile: ./Dockerfile
+    ports:
+      - "5000:5000"
+
+
+  testapp-nginx:
+    build:
+      context: ./test-app
+      dockerfile: ./Dockerfile.nginx
+    ports:
+      - "8081:80"
+    links:
+      - testapp
+    depends_on:
+      - testapp

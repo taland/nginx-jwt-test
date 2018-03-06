@@ -1,0 +1,43 @@
+env JWT_SECRET;
+
+worker_processes auto;
+
+events {
+    worker_connections  1024;
+}
+
+error_log /dev/stdout warn;
+
+http {
+	lua_package_path "/usr/local/openresty/jwt/?.lua;;";
+
+	include mime.types;
+	default_type application/octet-stream;
+
+	sendfile on;
+	
+	keepalive_timeout  65;
+
+	server {
+        listen 80 default_server;
+        charset utf-8;
+
+        location / {
+            root   /usr/local/openresty/nginx/html;
+        	index  index.html index.htm;
+        }
+
+        location /secure {
+            access_by_lua '
+                local jwt = require("nginx-jwt")
+                jwt.auth()
+            ';
+
+            proxy_pass http://testapp:5000/secure;
+        }
+
+        location = /50x.html {
+	        root   /usr/local/openresty/nginx/html;
+	    }
+    }
+}
