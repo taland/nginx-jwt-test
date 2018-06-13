@@ -1,3 +1,12 @@
+# Running
+
+```
+$ docker-composer build
+$ docker-composer up
+```
+
+# Usage
+
 `sign` tool (from nginx-jwt repo) is used to generate a JWT:
 
 ```bash

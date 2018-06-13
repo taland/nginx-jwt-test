@@ -1,0 +1,18 @@
+vendor
+var
+builds
+sandbox
+.env
+
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*~
+.DS_Store
+
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode
